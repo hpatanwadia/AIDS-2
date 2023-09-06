@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Rate Trends for Cape Town Central (2005-2016)</title>
+    <!-- Load the Google Charts library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        /* Center the charts in the middle of the page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* Add space between the charts */
+        #charts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for the charts -->
+    <div id="charts-container">
+        <!-- HTML element where the Google Line Chart will be displayed -->
+        <div id="line-chart" style="width: 800px; height: 400px;"></div>
+        <!-- HTML element where the Google Bar Chart will be displayed -->
+        <div id="bar-chart" style="width: 800px; height: 400px;"></div>
+    </div>
+
+    <script>
+        // Define your data for Cape Town Central
+        var capeTownCentralData = [
+            ['Year', 'Crime Rate'],
+            ['2005-2006', 6692],
+            ['2006-2007', 6341],
+            ['2007-2008', 5966],
+            ['2008-2009', 5187],
+            ['2009-2010', 4985],
+            ['2010-2011', 5127],
+            ['2011-2012', 5285],
+            ['2012-2013', 5937],
+            ['2013-2014', 5600],
+            ['2014-2015', 5335],
+            ['2015-2016', 5176]
+        ];
+
+        // Load Google Charts and draw the Line Chart and Bar Chart
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            // Create and draw the Line Chart
+            var lineData = google.visualization.arrayToDataTable(capeTownCentralData);
+            var lineOptions = {
+                title: 'Crime Rate Trend (Line Chart) for Cape Town Central (2005-2016)',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                hAxis: { title: 'Year' },
+                vAxis: { title: 'Crime Rate' },
+                width: 800,
+                height: 400
+            };
+            var lineChart = new google.visualization.LineChart(document.getElementById('line-chart'));
+            lineChart.draw(lineData, lineOptions);
+
+            // Create and draw the Bar Chart
+            var barData = google.visualization.arrayToDataTable(capeTownCentralData);
+            var barOptions = {
+                title: 'Crime Rate (Bar Chart) for Cape Town Central (2005-2016)',
+                legend: { position: 'none' },
+                hAxis: { title: 'Crime Rate' },
+                vAxis: { title: 'Year' },
+                width: 800,
+                height: 400,
+                chartArea: { width: '60%' }
+            };
+            var barChart = new google.visualization.BarChart(document.getElementById('bar-chart'));
+            barChart.draw(barData, barOptions);
+        }
+    </script>
+</body>
+</html>
